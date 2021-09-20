@@ -14,17 +14,5 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_menu"
-        android:background="@color/black_gray"
-        android:alpha="0.8"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:menu="@menu/bottom_menu"
-        app:itemIconTint="@color/white"
-        app:itemTextColor="@color/white"
-        app:itemTextAppearanceActive="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle" />
-
 
 </LinearLayout>
