@@ -10,6 +10,7 @@ interface MovieApi {
     @GET("/3/movie/now_playing")
     suspend fun getNowPlaying(
         @Query("api_key") key: String,
+        @Query("language") language: String,
         @Query("page") page: Int
     ): Response<MovieResponse>
 
@@ -17,6 +18,7 @@ interface MovieApi {
     suspend fun getSimilar(
         @Path("movie_id") movieId: Int,
         @Query("api_key") key: String,
+        @Query("language") language: String,
         @Query("page") page: Int
     ): Response<MovieResponse>
 }

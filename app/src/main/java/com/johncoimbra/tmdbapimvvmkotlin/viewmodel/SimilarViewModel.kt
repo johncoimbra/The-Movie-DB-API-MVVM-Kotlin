@@ -15,9 +15,13 @@ class SimilarViewModel : ViewModel() {
     val similar = MutableLiveData<List<MovieModel>>()
     val similarError = MutableLiveData<Event<Unit>>()
 
-    fun getSimilar(movieId: Int, page: Int) {
+    fun getSimilar(movieId: Int, language: String, page: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val movieResponse = repository.getSimilar(movieId, page)
+            val movieResponse = repository.getSimilar(
+                movieId = movieId,
+                language = language,
+                page = page
+            )
             if (movieResponse == null) {
                 similarError.postValue(Event(Unit))
             } else {

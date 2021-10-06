@@ -21,7 +21,9 @@ class NowPlayingFragment : Fragment(), MovieListener {
     private lateinit var mNowPlayingAdapter: NowPlayingAdapter
     private var _binding: FragmentNowPlayingBinding? = null
     private val binding get() = _binding!!
+    var language: String = "pt-BR"
     var page: Int = 1
+
 
     companion object {
         fun newInstance(): NowPlayingFragment {
@@ -47,12 +49,11 @@ class NowPlayingFragment : Fragment(), MovieListener {
 
         setUpRecyclerView()
         setUpObservers()
-        nowPlayingViewModel.getNowPlaying(page++)
+        nowPlayingViewModel.getNowPlaying(language, page++)
     }
 
     private fun setUpObservers() {
         nowPlayingViewModel.nowPlaying.observe(viewLifecycleOwner) {
-            //Toast.makeText(activity, "Dados da Api retornados com sucesso", Toast.LENGTH_SHORT).show()
             mNowPlayingAdapter.replaceData(it)
         }
         nowPlayingViewModel.nowPlayingError.observe(viewLifecycleOwner) {
@@ -69,7 +70,7 @@ class NowPlayingFragment : Fragment(), MovieListener {
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 if (!recyclerView.canScrollVertically(1)) {
-                    nowPlayingViewModel.getNowPlaying(page++)
+                    nowPlayingViewModel.getNowPlaying(language, page++)
                 }
             }
         })

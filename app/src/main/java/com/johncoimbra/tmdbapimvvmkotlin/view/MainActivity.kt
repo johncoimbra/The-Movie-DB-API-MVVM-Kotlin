@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         loadFragment(NowPlayingFragment.newInstance())
     }
 
-    fun loadFragment(mFragmentLoaded: Fragment) {
+    private fun loadFragment(mFragmentLoaded: Fragment) {
         addFragment(mFragmentLoaded, supportFragmentManager, binding.content)
     }
 }
