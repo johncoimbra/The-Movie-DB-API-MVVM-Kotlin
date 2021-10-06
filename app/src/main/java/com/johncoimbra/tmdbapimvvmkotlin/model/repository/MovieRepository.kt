@@ -9,8 +9,8 @@ class MovieRepository {
 
     private val api: MovieApi = RetrofitFactory.makeRetrofit()
 
-    suspend fun getNowPlaying(page: Int): MovieResponse? {
-        val response = api.getNowPlaying(Credentials.API_KEY, page)
+    suspend fun getNowPlaying(language: String, page: Int): MovieResponse? {
+        val response = api.getNowPlaying(Credentials.API_KEY, language, page)
         return if (response.isSuccessful) {
             response.body()
         } else {
@@ -18,8 +18,8 @@ class MovieRepository {
         }
     }
 
-    suspend fun getSimilar(movieId: Int, page: Int): MovieResponse? {
-        val response = api.getSimilar(movieId, Credentials.API_KEY, page)
+    suspend fun getSimilar(movieId: Int, language: String, page: Int): MovieResponse? {
+        val response = api.getSimilar(movieId, Credentials.API_KEY, language, page)
         return if (response.isSuccessful) {
             response.body()
         } else {

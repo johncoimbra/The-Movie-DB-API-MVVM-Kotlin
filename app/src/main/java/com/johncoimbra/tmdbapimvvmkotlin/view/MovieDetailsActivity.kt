@@ -23,9 +23,10 @@ class MovieDetailsActivity : AppCompatActivity(), MovieListener {
 
     private val similarViewModel = SimilarViewModel()
     private lateinit var mSimilarAdapter: SimilarAdapter
-    var page: Int = 1
-    var movieId: Int = 0
-    var isFavorite: Boolean = false
+    private var language: String = "pt-BR"
+    private var page: Int = 1
+    private var movieId: Int = 0
+    private var isFavorite: Boolean = false
     private lateinit var binding: ActivityMovieDetailsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +40,7 @@ class MovieDetailsActivity : AppCompatActivity(), MovieListener {
         setUpRecyclerView()
         setUpObservers()
 
-        similarViewModel.getSimilar(movieId, page++)
+        similarViewModel.getSimilar(movieId, language, page++)
     }
 
     private fun setUpObservers() {
@@ -62,7 +63,7 @@ class MovieDetailsActivity : AppCompatActivity(), MovieListener {
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 if (!recyclerView.canScrollVertically(1)) {
-                    similarViewModel.getSimilar(movieId, page++)
+                    similarViewModel.getSimilar(movieId, language, page++)
                 }
             }
         });

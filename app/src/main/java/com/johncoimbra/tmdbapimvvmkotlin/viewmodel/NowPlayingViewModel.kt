@@ -15,9 +15,9 @@ class NowPlayingViewModel : ViewModel() {
     val nowPlaying = MutableLiveData<List<MovieModel>>()
     val nowPlayingError = MutableLiveData<Event<Unit>>()
 
-    fun getNowPlaying(page: Int) {
+    fun getNowPlaying(language: String, page: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val movieResponse = repository.getNowPlaying(page)
+            val movieResponse = repository.getNowPlaying(language = language, page = page)
             if (movieResponse == null) {
                 nowPlayingError.postValue(Event(Unit))
             } else {

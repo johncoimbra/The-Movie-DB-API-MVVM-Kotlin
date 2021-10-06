@@ -8,5 +8,5 @@ data class MovieModel(
     @SerializedName("overview") val overview: String,
     @SerializedName("poster_path") val posterPath: String,
     @SerializedName("popularity") val popularity: Double,
-    @SerializedName("vote_count") val vote_count: Int
+    @SerializedName("vote_count") val vote_count: Int,
 )
