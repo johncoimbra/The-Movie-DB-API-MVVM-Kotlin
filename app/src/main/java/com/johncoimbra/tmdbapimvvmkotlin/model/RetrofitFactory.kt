@@ -7,7 +7,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitFactory {
-    fun makeRetrofit() = Retrofit.Builder()
+    fun makeRetrofit(): MovieApi = Retrofit.Builder()
         .baseUrl(Credentials.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
