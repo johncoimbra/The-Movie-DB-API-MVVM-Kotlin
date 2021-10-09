@@ -9,34 +9,29 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.johncoimbra.tmdbapimvvmkotlin.R
+import com.johncoimbra.tmdbapimvvmkotlin.databinding.MovieListLayoutBinding
+import com.johncoimbra.tmdbapimvvmkotlin.databinding.MovieListSimilarLayoutBinding
 import com.johncoimbra.tmdbapimvvmkotlin.listener.MovieListener
 import com.johncoimbra.tmdbapimvvmkotlin.model.entity.MovieModel
 import com.johncoimbra.tmdbapimvvmkotlin.model.service.Credentials
 import com.squareup.picasso.Picasso
 
 class SimilarAdapter(
-    var mSimilarList: List<MovieModel>,
+    private var mSimilarList: List<MovieModel>,
     private val context: Context? = null,
-    val movieListener: MovieListener
-) :
-    RecyclerView.Adapter<SimilarAdapter.SimilarHolder>() {
+    private val movieListener: MovieListener
+) : RecyclerView.Adapter<SimilarAdapter.SimilarHolder>() {
+
+    private lateinit var binding: MovieListSimilarLayoutBinding
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimilarHolder {
-        val inflater: LayoutInflater = LayoutInflater.from(context)
-        val view: View = inflater.inflate(R.layout.movie_list_similar_layout, parent, false)
-        return SimilarHolder(view)
+        binding = MovieListSimilarLayoutBinding.inflate(LayoutInflater.from(context), parent, false)
+        return SimilarHolder(binding)
     }
 
     override fun onBindViewHolder(holder: SimilarHolder, position: Int) {
         val mMoviesSimilar: MovieModel = mSimilarList[position]
-
-        holder.mMovieTitle.text = mMoviesSimilar.title
-        holder.mMovieOverview.text = mMoviesSimilar.overview
-
-        Picasso.get()
-            .load(Credentials.BASE_URL_IMAGE + mMoviesSimilar.posterPath)
-            .fit().centerCrop()
-            .into(holder.mMovieImage)
-
+        holder.bind(mMoviesSimilar)
         holder.itemView.setOnClickListener {
             movieListener.onMovieItemClicked(mMoviesSimilar)
         }
@@ -57,9 +52,18 @@ class SimilarAdapter(
         mSimilarList = mListMoviesSimilar
     }
 
-    class SimilarHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val mMovieTitle: TextView = itemView.findViewById(R.id.txt_title_similar)
-        val mMovieOverview: TextView = itemView.findViewById(R.id.txt_overview_similar)
-        val mMovieImage: ImageView = itemView.findViewById(R.id.image_similar)
+    class SimilarHolder(binding: MovieListSimilarLayoutBinding): RecyclerView.ViewHolder(binding.root) {
+        private val mMovieTitle = binding.txtTitleSimilar
+        private val mMovieOverview = binding.txtOverviewSimilar
+        private val mMovieImage = binding.imageSimilar
+
+        fun bind(mMovieSimilar: MovieModel) {
+            mMovieTitle.text = mMovieSimilar.title
+            mMovieOverview.text = mMovieSimilar.overview
+            Picasso.get()
+                .load(Credentials.BASE_URL_IMAGE + mMovieSimilar.posterPath)
+                .fit().centerCrop()
+                .into(mMovieImage)
+        }
     }
 }

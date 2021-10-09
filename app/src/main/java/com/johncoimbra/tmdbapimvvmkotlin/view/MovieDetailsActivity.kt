@@ -2,11 +2,10 @@ package com.johncoimbra.tmdbapimvvmkotlin.view
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import androidx.lifecycle.Observer
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.johncoimbra.tmdbapimvvmkotlin.R
@@ -33,7 +32,7 @@ class MovieDetailsActivity : AppCompatActivity(), MovieListener {
         super.onCreate(savedInstanceState)
         binding = ActivityMovieDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        supportActionBar?.hide()
+        supportActionBar!!.hide()
 
         changeButtonFavorite()
         getDataIntent()
@@ -41,15 +40,18 @@ class MovieDetailsActivity : AppCompatActivity(), MovieListener {
         setUpObservers()
 
         similarViewModel.getSimilar(movieId, language, page++)
+
+        setToolbar()
     }
 
+
+
     private fun setUpObservers() {
-        similarViewModel.similar.observe(this, Observer {
+        similarViewModel.similar.observe(this, {
             Log.v("Similar", "Dados recebidos com sucesso")
             mSimilarAdapter.replaceDataSimilar(it)
         })
-
-        similarViewModel.similarError.observe(this, Observer {
+        similarViewModel.similarError.observe(this, {
             Toast.makeText(this, "Ocorreu um erro na chamado do servidor", Toast.LENGTH_SHORT)
                 .show()
         })
@@ -66,7 +68,7 @@ class MovieDetailsActivity : AppCompatActivity(), MovieListener {
                     similarViewModel.getSimilar(movieId, language, page++)
                 }
             }
-        });
+        })
     }
 
     private fun changeButtonFavorite() {
@@ -104,13 +106,24 @@ class MovieDetailsActivity : AppCompatActivity(), MovieListener {
         }
     }
 
-    override fun onMovieItemClicked(movieModel: MovieModel) {
+    override fun onMovieItemClicked(position: MovieModel) {
         val mMovieDetails = Intent(this, MovieDetailsActivity::class.java)
-        mMovieDetails.putExtra("movieId", movieModel.movie_id)
-        mMovieDetails.putExtra("posterPath", movieModel.posterPath)
-        mMovieDetails.putExtra("title", movieModel.title)
-        mMovieDetails.putExtra("voteCount", movieModel.vote_count)
-        mMovieDetails.putExtra("popularity", movieModel.popularity)
+        mMovieDetails.putExtra("movieId", position.movie_id)
+        mMovieDetails.putExtra("posterPath", position.posterPath)
+        mMovieDetails.putExtra("title", position.title)
+        mMovieDetails.putExtra("voteCount", position.vote_count)
+        mMovieDetails.putExtra("popularity", position.popularity)
         this.startActivity(mMovieDetails)
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private fun setToolbar() {
+        val toolbar = binding.toolbarDetails
+        toolbar.navigationIcon = getDrawable(R.drawable.ic_back)
+        toolbar.title = null
+        toolbar.setNavigationOnClickListener {
+            startActivity(Intent(this, NowPlayingActivity::class.java))
+            finish()
+        }
     }
 }

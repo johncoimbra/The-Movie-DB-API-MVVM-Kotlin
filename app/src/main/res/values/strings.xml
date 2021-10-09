@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">TMDb API MVVM Kotlin</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="text_title_favorites">Favorites</string>
     <string name="text_title_search">Search</string>
     <string name="text_tittle_now_playing">Now Playing</string>
     <string name="overview_similar">Lorem ipsum semper vitae donec nisi curabitur etiam netus nam, vitae dictumst nulla mi purus dictumst consequat lectus proin nisi, class dui commodo semper velit enim curabitur nisl. aenean convallis eget bibendum aenean tristique massa arcu nunc arcu litora, arcu consectetur erat leo lobortis posuere morbi fringilla mauris nunc, adipiscing</string>
-    <string name="title_similar">Avengers: End Game</string>
+    <string name="todo_image_details">TODO</string>
+    <string name="todo_fav_btn">TODO</string>
+    <string name="similares">Similares</string>
+    <string name="todo_movie_image">TODO</string>
+    <string name="todo_image_similar">TODO</string>
 </resources>

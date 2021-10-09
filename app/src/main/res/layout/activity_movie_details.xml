@@ -7,6 +7,16 @@
     android:background="@color/black"
     tools:context=".view.MovieDetailsActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_details"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:minHeight="?attr/actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/imageView_details"
         android:layout_width="match_parent"
@@ -15,7 +25,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/vingadores" />
+        app:srcCompat="@drawable/vingadores"
+        android:contentDescription="@string/todo_image_details" />
 
     <LinearLayout
         android:id="@+id/linear_details"
@@ -38,12 +49,12 @@
 
             <TextView
                 android:id="@+id/textView_title_details"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif-condensed"
-                android:text="Avengers: End Game"
-                android:textColor="#E5F1F0"
+                tools:text="Vingadores: Ultimato"
+                android:textColor="@color/text_details"
                 android:textSize="30sp" />
 
             <ImageView
@@ -53,7 +64,8 @@
                 android:background="@android:color/transparent"
                 android:clickable="true"
                 android:focusable="true"
-                android:src="@drawable/ic_fav_off" />
+                android:src="@drawable/ic_fav_off"
+                android:contentDescription="@string/todo_fav_btn" />
 
         </LinearLayout>
 
@@ -69,24 +81,24 @@
                 android:id="@+id/text_vote_count"
                 android:layout_width="164dp"
                 android:layout_height="match_parent"
-                android:drawableStart="@drawable/ic_vote_count"
                 android:gravity="center|start"
-                android:text="2436 Likes"
+                tools:text="2436 Likes"
                 android:drawablePadding="5dp"
-                android:textColor="#E5F1F0"
+                android:textColor="@color/text_details"
                 android:textSize="15sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:drawableStartCompat="@drawable/ic_vote_count" />
 
             <TextView
                 android:id="@+id/text_popularity"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:drawableStart="@drawable/ic_popularity"
                 android:drawablePadding="5dp"
-                android:text="Popularity: 2070.0"
-                android:textColor="#E5F1F0"
+                tools:text="Popularity: 2070.0"
+                android:textColor="@color/text_details"
                 android:textSize="15sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:drawableStartCompat="@drawable/ic_popularity" />
 
         </LinearLayout>
 
@@ -96,7 +108,7 @@
         android:id="@+id/text_similares"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Similares"
+        android:text="@string/similares"
         android:layout_marginTop="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
@@ -111,7 +123,7 @@
         android:id="@+id/recyclerView_similar"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

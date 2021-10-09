@@ -9,33 +9,28 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.johncoimbra.tmdbapimvvmkotlin.R
+import com.johncoimbra.tmdbapimvvmkotlin.databinding.MovieListLayoutBinding
 import com.johncoimbra.tmdbapimvvmkotlin.listener.MovieListener
 import com.johncoimbra.tmdbapimvvmkotlin.model.entity.MovieModel
 import com.johncoimbra.tmdbapimvvmkotlin.model.service.Credentials
 import com.squareup.picasso.Picasso
 
 class NowPlayingAdapter(
-    var mNowPlayingList: List<MovieModel>,
+    private var mNowPlayingList: List<MovieModel>,
     private val context: Context? = null,
-    val movieListener: MovieListener
-) :
-    RecyclerView.Adapter<NowPlayingAdapter.NowPlayingHolder>() {
+    private val movieListener: MovieListener
+): RecyclerView.Adapter<NowPlayingAdapter.NowPlayingHolder>() {
+
+    private lateinit var binding: MovieListLayoutBinding
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NowPlayingHolder {
-        val inflater: LayoutInflater = LayoutInflater.from(context)
-        val view: View = inflater.inflate(R.layout.movie_list_layout, parent, false)
-        return NowPlayingHolder(view)
+        binding = MovieListLayoutBinding.inflate(LayoutInflater.from(context), parent, false)
+        return NowPlayingHolder(binding)
     }
 
     override fun onBindViewHolder(holder: NowPlayingHolder, position: Int) {
         val mMoviesNowPlaying: MovieModel = mNowPlayingList[position]
-
-        holder.mMovieTitle.text = mMoviesNowPlaying.title
-
-        Picasso.get()
-            .load(Credentials.BASE_URL_IMAGE + mMoviesNowPlaying.posterPath)
-            .fit().centerCrop()
-            .into(holder.mMovieImage)
-
+        holder.bind(mMoviesNowPlaying)
         holder.itemView.setOnClickListener {
             movieListener.onMovieItemClicked(mMoviesNowPlaying)
         }
@@ -56,9 +51,17 @@ class NowPlayingAdapter(
         mNowPlayingList = mListMovies
     }
 
-    class NowPlayingHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val mMovieTitle: TextView = itemView.findViewById(R.id.movie_title)
-        val mMovieImage: ImageView = itemView.findViewById(R.id.movie_image)
+    class NowPlayingHolder(binding: MovieListLayoutBinding): RecyclerView.ViewHolder(binding.root) {
+        private val mMovieTitle = binding.movieTitle
+        private val mMovieImage = binding.movieImage
+
+        fun bind(movie: MovieModel) {
+            mMovieTitle.text = movie.title
+            Picasso.get()
+                .load(Credentials.BASE_URL_IMAGE + movie.posterPath)
+                .fit().centerCrop()
+                .into(mMovieImage)
+        }
     }
 }
 

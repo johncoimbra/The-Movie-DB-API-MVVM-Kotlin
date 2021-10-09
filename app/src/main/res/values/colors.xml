@@ -10,5 +10,6 @@
     <color name="black_gray">#282828</color>
     <color name="light_gray">#B2B2B2</color>
     <color name="background_tmdb">#032541</color>
+    <color name="text_details">#E5F1F0</color>
 
 </resources>
